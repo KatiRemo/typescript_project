@@ -1,4 +1,5 @@
 //decorator is a function, autobind decorator
+//autobind is to automatically bind to "this" keyword
 
 function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
@@ -35,11 +36,44 @@ class ProjectInput {
             this.configure();
             this.attach();
     }
+
+    //collect inputs from PMApp form
+    private gatherUserInput(): [string, string, number] | void {
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enteredPeople = this.peopleInputElement.value;
+
+        if(
+            enteredTitle.trim().length === 0 || 
+            enteredDescription.trim().length === 0 || 
+            enteredPeople.trim().length === 0
+            ) {
+            alert('Invalid input');
+            return;
+        }
+        else {
+            return [enteredTitle, enteredDescription, +enteredPeople];
+        }
+
+    }
+
+    private clearInput() {
+        this.titleInputElement.value = '';
+        this.descriptionInputElement.value = '',
+        this.peopleInputElement.value = '';
+    }
+
     @autobind
     private submitHandler(event: Event) {
         event.preventDefault();
-        console.log(this.titleInputElement.value);
+        // console.log(this.titleInputElement.value);
         // console.log(this.descriptionInputElement.value);
+        const userInput = this.gatherUserInput();
+        if(Array.isArray(userInput)) {
+            const [title, description, people] = userInput;
+            console.log(title, description, people);
+            this.clearInput();
+        }
     }
 
     private configure() {
