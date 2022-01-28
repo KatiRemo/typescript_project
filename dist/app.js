@@ -5,6 +5,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+function validate(validtableInput) {
+    let isValid = true;
+    if (validtableInput.required) {
+        isValid = isValid && validtableInput.value.toString().trim().length !== 0;
+    }
+    if (validtableInput.minLength != null && typeof validtableInput.value === 'string') {
+        isValid = isValid && validtableInput.value.length >= validtableInput.minLength;
+    }
+    if (validtableInput.maxLength != null && typeof validtableInput.value === 'string') {
+        isValid = isValid && validtableInput.value.length <= validtableInput.maxLength;
+    }
+    if (validtableInput.min != null && typeof validtableInput.value === 'number') {
+        isValid = isValid && validtableInput.value >= validtableInput.min;
+    }
+    if (validtableInput.max != null && typeof validtableInput.value === 'number') {
+        isValid = isValid && validtableInput.value <= validtableInput.max;
+    }
+    return isValid;
+}
 function autobind(_, _2, descriptor) {
     const originalMethod = descriptor.value;
     const adjDescriptor = {

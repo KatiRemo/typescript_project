@@ -1,3 +1,33 @@
+//creating a re-usable validation functionality
+interface Validtable {
+    value: string | number;
+    required?: boolean; //? makes this optional to fill in
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+}
+
+function validate(validtableInput: Validtable) {
+    let isValid = true;
+    if (validtableInput.required) {
+        isValid = isValid && validtableInput.value.toString().trim().length !==0;
+    }
+    if(validtableInput.minLength != null && typeof validtableInput.value === 'string') {
+        isValid = isValid && validtableInput.value.length >= validtableInput.minLength;
+    }
+    if(validtableInput.maxLength != null && typeof validtableInput.value === 'string') {
+        isValid = isValid && validtableInput.value.length <= validtableInput.maxLength;
+    }
+    if(validtableInput.min != null && typeof validtableInput.value === 'number') {
+        isValid = isValid && validtableInput.value >= validtableInput.min;
+    }
+    if(validtableInput.max != null && typeof validtableInput.value === 'number') {
+        isValid = isValid && validtableInput.value <= validtableInput.max;
+    }
+    return isValid;
+}
+
 //decorator is a function, autobind decorator
 //autobind is to automatically bind to "this" keyword
 
