@@ -78,7 +78,8 @@ class ProjectInput {
 
     private configure() {
         //call bind here to reconfigure how this function is going to execute when it executes in the future
-        this.element.addEventListener('submit', this.submitHandler.bind(this));
+        //this.element.addEventListener('submit', this.submitHandler.bind(this));
+        this.element.addEventListener('submit', this.submitHandler);
     }
 
     private attach() {
